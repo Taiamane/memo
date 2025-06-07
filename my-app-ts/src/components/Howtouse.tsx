@@ -2,7 +2,6 @@ import React from 'react'; // Reactをインポート
 
 
 function Howtouse(){
-  // --- JSX (UIの記述) ---
   return (
     <div>      
       <p>

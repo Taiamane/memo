@@ -7,17 +7,14 @@ import Howtouse from './components/Howtouse';
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path='/howtouse' Component={Howtouse} />
-        </Routes>  
+      <BrowserRouter>  
       
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           これをメモ帳アプリの雛形とする！！
         </p>
-          <Link to='/howtouse'>使い方のページはこちら</Link>
+          
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -27,6 +24,11 @@ function App() {
           Learn React
         </a>
       </header>
+
+      <Link to='/howtouse'>使い方のページはこちら</Link>
+        <Routes>
+          <Route path='/howtouse' Component={Howtouse} />
+        </Routes>
       </BrowserRouter>
     </div>
   );
