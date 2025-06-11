@@ -60,18 +60,10 @@ const SendForm: React.FC<SendFormProps> = ({ apiEndpoint }) => {
       setGetError('IDを入力してください。');
       return;
     }
-
-    // ★注意: 通常GETリクエストでbodyは使いません。
-    // バックエンドのFirebase Functionsがreq.bodyを読む想定のため、
-    // ここではPOSTと同様のbodyでfetchをしていますが、
-    // 一般的にはURLクエリパラメータを使用します（例: `${apiEndpoint}?id=${getID}`）。
+    const url = `${apiEndpoint}?id=${encodeURIComponent(getID)}`
     try {
-      const response = await fetch(apiEndpoint, {
+      const response = await fetch(url, {
         method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ id: getID }),
       });
 
       if (!response.ok) {
