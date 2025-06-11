@@ -3,8 +3,13 @@ import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import Howtouse from './components/Howtouse';
+import SendForm from './components/Send_forms';
 
 function App() {
+
+  // ⭐ ここにAPIのエンドポイントURLを設定してください
+  const FIREBASE_FUNCTIONS_URL_TESTFUNC = 'https://us-central1-memocho-7cb5d.cloudfunctions.net/Test_request'; 
+
   return (
     <div className="App">
       <BrowserRouter>  
@@ -14,7 +19,7 @@ function App() {
         <p>
           これをメモ帳アプリの雛形とする！！
         </p>
-          
+        <SendForm apiEndpoint={FIREBASE_FUNCTIONS_URL_TESTFUNC} />
         <a
           className="App-link"
           href="https://reactjs.org"
