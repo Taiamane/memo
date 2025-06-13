@@ -76,12 +76,12 @@ const AuthButton: React.FC<AuthButtonProps> = ({ onUserChange }) => {
   }
 
   return (
-    <div style={{ textAlign: 'center', padding: '20px', border: '1px solid #ccc', borderRadius: '8px', maxWidth: '400px', margin: '20px auto', backgroundColor: '#f9f9f9' }}>
+    <div>
       {user ? (
         // ログイン中の場合
         <div>
           <p>
-            こんにちは、**{user.displayName || user.email || '名無しさん'}**！
+            {user.displayName || user.email || '名無しさん'}でログイン中
           </p>
           {user.photoURL && (
             <img 
@@ -90,46 +90,19 @@ const AuthButton: React.FC<AuthButtonProps> = ({ onUserChange }) => {
               style={{ width: '60px', height: '60px', borderRadius: '50%', marginBottom: '10px' }} 
             />
           )}
-          <button 
-            onClick={handleSignOut}
-            style={{ 
-              padding: '10px 20px', 
-              backgroundColor: '#dc3545', 
-              color: 'white', 
-              border: 'none', 
-              borderRadius: '5px', 
-              cursor: 'pointer', 
-              fontSize: '1em' 
-            }}
-          >
+          <button onClick={handleSignOut}>
             ログアウト
           </button>
         </div>
       ) : (
         // ログインしていない場合
         <div>
-          <p>Googleアカウントでログインしてください。</p>
           <button 
             onClick={handleGoogleSignIn}
             style={{ 
-              padding: '10px 20px', 
-              backgroundColor: '#4285F4', // Google Blue
-              color: 'white', 
-              border: 'none', 
-              borderRadius: '5px', 
-              cursor: 'pointer', 
-              fontSize: '1em',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              margin: 'auto'
-            }}
-          >
-            <img 
-              src="https://www.gstatic.com/images/branding/product/2x/ggl_googleg_48dp.png" 
-              alt="Googleロゴ" 
-              style={{ width: '20px', height: '20px', marginRight: '8px' }} 
-            />
+              
+              color: 'black',               
+            }}>            
             Googleでログイン
           </button>
         </div>

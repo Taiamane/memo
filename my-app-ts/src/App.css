@@ -15,13 +15,35 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 20vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding: 15px 20px;
   color: white;
+  border-radius: 6px 6px 0 0;
+  margin-bottom: 20px;
+  display: flex;             /* 要素をFlexコンテナにする */
+  justify-content: space-between; /* 子要素を両端に寄せる */
+  align-items: center;       /* 子要素を垂直方向の中央に配置 */
+}
+
+.App-header p {
+  margin: 0; /* pタグのデフォルトマージンをリセット */
+  /* 必要であれば、pタグのフォントサイズや太さを調整 */
+}
+.App-header button {
+  background-color: #61dafb;
+  color: #282c34;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.95em;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.App-header button:hover {
+  background-color: #21a1f1;
+  color: white;
+  transform: translateY(-1px);
 }
 
 .App-link {
