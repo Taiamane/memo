@@ -4,9 +4,11 @@ import './App.css';
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import Apitest from './components/Apitest';
 import AuthButton from './components/Authbutton';
+import { useState } from 'react';
+import { User } from 'firebase/auth';
 
 function App() {
-
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
   // ⭐ ここにAPIのエンドポイントURLを設定してください
   
   return (
