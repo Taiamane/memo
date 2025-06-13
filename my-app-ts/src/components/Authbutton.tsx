@@ -83,7 +83,7 @@ const AuthButton: React.FC<AuthButtonProps> = ({ onUserChange }) => {
           <p>
             {user.displayName || user.email || '名無しさん'}でログイン中
           </p>
-          {user.photoURL && (
+          {user.photoURL && ( //user.photoURLがTrueの時のみ、imgがレンダリングされるという構文
             <img 
               src={user.photoURL} 
               alt="プロフィール画像" 
