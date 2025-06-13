@@ -10,7 +10,7 @@ const FIREBASE_FUNCTIONS_URL = 'YOUR_FIREBASE_FUNCTIONS_URL';
 
 function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const handleUserChange = useCallback((user: User | null) => {
+  const handleUserChange = useCallback((user: User | null) => { //よくわかってない
     setCurrentUser(user);
     console.log("App.tsx: ユーザー情報が更新されました:", user ? user.uid : "ログアウト");
   }, []);
