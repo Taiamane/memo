@@ -8,10 +8,10 @@ const FIREBASE_FUNCTIONS_URL_TESTFUNC = 'https://us-central1-memocho-7cb5d.cloud
 function Apitest(){
   return (
     <div>           
-      <p>
-        開発用のAPIテストページだよ
+      <p>開発用のAPI接続テストページだよ</p>
+        <p style={{color:"red"}} >普段はさわらないでね</p>
         <SendForm apiEndpoint={FIREBASE_FUNCTIONS_URL_TESTFUNC} />
-      </p>
+      
       <Link to='/'>閉じる</Link>
       
       
