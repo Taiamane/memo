@@ -5,6 +5,7 @@ import Apitest from './components/Apitest';
 import AuthButton from './components/Authbutton';
 import { useState, useCallback } from 'react';
 import { User } from 'firebase/auth';
+import MyMemoList from './components/MyMemolist';
 
 const FIREBASE_FUNCTIONS_URL = 'YOUR_FIREBASE_FUNCTIONS_URL';
 
@@ -40,14 +41,16 @@ function App() {
               
               {currentUser ? (
                 <div>
-                  <h2>ログインしてる時だけ見れる部分だよ</h2>
-                  {/* <SendForm apiEndpoint={FIREBASE_FUNCTIONS_URL} currentUserId={currentUser.uid} /> */}
+                  ここにメモを表示するよ
+                  {/*<MyMemoList currentUser={currentUser} apiEndpoint={FIREBASE_FUNCTIONS_URL} />: */}
                 </div>
               ) : (
                 <p>
-                  ログインしてないよ
+                  ログインしてないよ<br/>
+                  多分ここには宣伝フレーズを書くよ
                 </p>
               )}
+              
               <Link to="/apitest">APIテストフォームを表示する</Link>
             </div>
             } />   
