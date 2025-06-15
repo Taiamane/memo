@@ -6,11 +6,13 @@ import AuthButton from './components/Authbutton';
 import { useState, useCallback } from 'react';
 import { User } from 'firebase/auth';
 import MyMemoList from './components/MyMemolist';
+import PostnewMemo from './components/Postnewmemo';
 
 const FIREBASE_FUNCTIONS_URL = 'YOUR_FIREBASE_FUNCTIONS_URL';
 
 function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [postformopen, setPostformopen] = useState <boolean>(false);
   const handleUserChange = useCallback((user: User | null) => { //よくわかってない
     setCurrentUser(user);
     console.log("App.tsx: ユーザー情報が更新されました:", user ? user.uid : "ログアウト");
@@ -41,6 +43,20 @@ function App() {
               
               {currentUser ? (
                 <div>
+                  {!postformopen && (
+                  <div>
+                    <button onClick={()=>setPostformopen(true)}>あたらしくつくる</button>
+                  </div>
+                  )}
+                  {postformopen &&(
+                    <div>
+                    <button onClick={()=>setPostformopen(false)}>閉じる</button>
+                    <PostnewMemo currentUser={currentUser} apiEndpoint='DBのURL'></PostnewMemo>
+                    </div>
+                  )}
+                    
+                
+                  
                   ここにメモを表示するよ
                   {/*<MyMemoList currentUser={currentUser} apiEndpoint={FIREBASE_FUNCTIONS_URL} />: */}
                 </div>
@@ -54,7 +70,8 @@ function App() {
               <Link to="/apitest">APIテストフォームを表示する</Link>
             </div>
             } />   
-
+          
+          
 
           <Route path='/apitest' Component={Apitest} />
         </Routes>
