@@ -29,7 +29,7 @@ const PostnewMemo: React.FC<NewmemoProps> = ({ currentUser, apiEndpoint }) => {
             type="text"
             value={memocontent}
             onChange={(e) => setMemoContent(e.target.value)}
-            placeholder="IDを入力"
+            placeholder="内容を入力"
           />
           </div>  
       </div>  )
