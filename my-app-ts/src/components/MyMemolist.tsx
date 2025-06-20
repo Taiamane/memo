@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { User } from 'firebase/auth'; // FirebaseのUser型をインポート
+import remarkGfm from 'remark-gfm'; //これを使うとコンテンツをマークダウンにできるよ
 
 interface MyMemoListProps {
   currentUser: User; // ログインユーザーの情報を必ず受け取るので User 型
@@ -17,12 +18,6 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
       setLoading(true);
       setError(null);
       try {
-        // GETリクエストでユーザーのメモを取得
-        // ここではAPIエンドポイントに対して、ユーザーIDをクエリパラメータとして送ることを想定
-        // 例: YOUR_FIREBASE_FUNCTIONS_URL/mymemos?userId=user_uid_123
-        // 関数側で /mymemos のようなパスで別の関数をトリガーする場合
-        // もしくは、汎用的なRequested関数にuserIdを渡す場合
-        
         // 仮に、GETリクエストでuserIdをクエリパラメータとして送る場合
         const url = `${apiEndpoint}?userId=${encodeURIComponent(currentUser.uid)}`;
         
@@ -31,9 +26,7 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
 
         const response = await fetch(url, {
           method: 'GET',
-          // 通常のGETリクエストではbodyは不要です
-          // headers: { 'Content-Type': 'application/json' },
-          // body: JSON.stringify({ userId: currentUser.uid }) // Firebase Functionsがreq.bodyを読むなら
+          
         });
 
         if (!response.ok) {
@@ -42,7 +35,7 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
         }
 
         const data = await response.json();
-        setMemos(data.data || []); // 実際のメモデータはdata.dataに含まれると仮定
+        setMemos(data.data || []); //まだ本番用のDBのテーブルは作ってないけど
       } catch (err: any) {
         setError(`メモの読み込みエラー: ${err.message}`);
         console.error("メモの取得エラー:", err);

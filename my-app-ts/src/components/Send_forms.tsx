@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+
 interface SendFormProps {
   apiEndpoint: string; // APIのエンドポイントURLをプロップスとして受け取る
 }
