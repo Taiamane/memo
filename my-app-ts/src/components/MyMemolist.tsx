@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { User } from 'firebase/auth'; // FirebaseのUser型をインポート
+import remarkGfm from 'remark-gfm'; //これを使うとコンテンツをマークダウンにできるよ
 
 interface MyMemoListProps {
   currentUser: User; // ログインユーザーの情報を必ず受け取るので User 型

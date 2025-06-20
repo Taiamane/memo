@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import { User } from 'firebase/auth'; // FirebaseのUser型をインポート
 
+
 interface NewmemoProps {
   currentUser: User; // ログインユーザーの情報を必ず受け取るので User 型
   apiEndpoint: string; // APIエンドポイントも必要なので受け取る
