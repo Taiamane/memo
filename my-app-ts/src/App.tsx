@@ -51,7 +51,7 @@ function App() {
                   {postformopen &&(
                     <div>
                     <button onClick={()=>setPostformopen(false)}>閉じる</button>
-                    <PostnewMemo currentUser={currentUser} apiEndpoint='DBのURL'></PostnewMemo>
+                    <PostnewMemo currentUser={currentUser} apiEndpoint='DBのURL?'></PostnewMemo>
                     </div>
                   )}
                     
