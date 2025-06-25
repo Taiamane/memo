@@ -11,6 +11,9 @@ const PostnewMemo: React.FC<NewmemoProps> = ({ currentUser, apiEndpoint }) => {
   const[memocontent, setMemoContent] = useState<string>("何か入力してね");
   const[memotitle, setMemoTitle] = useState<string>("");
 
+  const [postResponse, setPostResponse] = useState<string | null>(null);
+  const [postError, setPostError] = useState<string | null>(null);
+
   const handlePostSubmit = async () => {
     if (!memotitle){
       setMemoTitle("無題")
@@ -27,7 +30,7 @@ const PostnewMemo: React.FC<NewmemoProps> = ({ currentUser, apiEndpoint }) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-          user: currentUser.uid,
+          user_id: currentUser.uid,
           title: memotitle,
           content:memocontent,
         }),
@@ -36,9 +39,11 @@ const PostnewMemo: React.FC<NewmemoProps> = ({ currentUser, apiEndpoint }) => {
         const errorData = await response.json();
         throw new Error(errorData.message || '投稿失敗');
       }
+    const data = await response.json();
+    setPostResponse(`POST成功: ${JSON.stringify(data, null, 2)}`);
       
-  }catch (error:any){
-    console.error('POSTエラー:',error);
+    }catch (error:any){
+      console.error('POSTエラー:',error);
     }
   };
 
