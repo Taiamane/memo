@@ -58,7 +58,7 @@ function App() {
                 
                   
                   ここにメモを表示するよ
-                  {/*<MyMemoList currentUser={currentUser} apiEndpoint={FIREBASE_FUNCTIONS_URL} />: */}
+                  {<MyMemoList currentUser={currentUser} apiEndpoint={MEMOCONTROL_URL} />}
                 </div>
               ) : (
                 <p>

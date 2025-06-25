@@ -19,14 +19,10 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
       setError(null);
       try {
         // 仮に、GETリクエストでuserIdをクエリパラメータとして送る場合
-        const url = `${apiEndpoint}?userId=${encodeURIComponent(currentUser.uid)}`;
+        const url = `${apiEndpoint}?user_id=${encodeURIComponent(currentUser.uid)}`;
         
-        // もしFirebase Functions側で別途「自分のメモ取得用」の関数（例: getMyMemos）を用意するなら
-        // const url = `https://<your-project-id>.<region>.cloudfunctions.net/getMyMemos?userId=${encodeURIComponent(currentUser.uid)}`;
-
         const response = await fetch(url, {
-          method: 'GET',
-          
+          method: 'GET',          
         });
 
         if (!response.ok) {
