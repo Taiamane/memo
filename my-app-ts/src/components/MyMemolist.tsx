@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { User } from 'firebase/auth'; // FirebaseのUser型をインポート
 import remarkGfm from 'remark-gfm'; //これを使うとコンテンツをマークダウンにできるよ
 
+import ReactMarkdown from 'react-markdown';
+
 interface MyMemoListProps {
   currentUser: User; // ログインユーザーの情報を必ず受け取るので User 型
   apiEndpoint: string; // APIエンドポイントも必要なので受け取る
@@ -81,7 +83,14 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
           {memos.map((memo) => (
             <li key={memo.id} style={{ marginBottom: '15px', padding: '15px', border: '1px solid #ddd', borderRadius: '6px', backgroundColor: '#fff' }}>
               <h3 style={{ margin: '0 0 10px 0', color: '#007bff' }}>{memo.title}</h3>
-              <p style={{ margin: '0', color: '#555', whiteSpace: 'pre-wrap' }}>{memo.content}</p>
+              <p style={{ margin: '0', color: '#555', whiteSpace: 'pre-wrap' }}>
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  
+                >
+                  {memo.content}
+                </ReactMarkdown>
+              </p>
               {/* 必要に応じて、編集ボタンや削除ボタンなどを追加 */}
               {/* <button onClick={Delete(memo)}>消去</button> */}
             </li>
