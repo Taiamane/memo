@@ -20,10 +20,6 @@ const PostnewMemo: React.FC<NewmemoProps> = ({ currentUser, apiEndpoint }) => {
     }
     // ロケールを指定して日付を取得するサンプルコード
   
-  
-  const madeDate: FieldValue = Timestamp.now()
-  const updatedDate: FieldValue = Timestamp.now()
-
   try{
     const response = await fetch(apiEndpoint, {
       method:'POST',
@@ -31,9 +27,7 @@ const PostnewMemo: React.FC<NewmemoProps> = ({ currentUser, apiEndpoint }) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-          user: currentUser,
-          madeDate: madeDate,
-          updatedDate: updatedDate,
+          user: currentUser.uid,
           title: memotitle,
           content:memocontent,
         }),
