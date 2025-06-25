@@ -8,7 +8,7 @@ import { User } from 'firebase/auth';
 import MyMemoList from './components/MyMemolist';
 import PostnewMemo from './components/Postnewmemo';
 
-const FIREBASE_FUNCTIONS_URL = 'YOUR_FIREBASE_FUNCTIONS_URL';
+const MEMOCONTROL_URL = 'https://us-central1-memocho-7cb5d.cloudfunctions.net/Memo_control';
 
 function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -51,7 +51,7 @@ function App() {
                   {postformopen &&(
                     <div>
                     <button onClick={()=>setPostformopen(false)}>閉じる</button>
-                    <PostnewMemo currentUser={currentUser} apiEndpoint='DBのURL?'></PostnewMemo>
+                    <PostnewMemo currentUser={currentUser} apiEndpoint={MEMOCONTROL_URL}></PostnewMemo>
                     </div>
                   )}
                     

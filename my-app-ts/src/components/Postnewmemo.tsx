@@ -19,15 +19,8 @@ const PostnewMemo: React.FC<NewmemoProps> = ({ currentUser, apiEndpoint }) => {
       setMemoContent("No content")
     }
     // ロケールを指定して日付を取得するサンプルコード
-  const now = new Date();
-  const options: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit'
-  };
+  
+  
   const madeDate: FieldValue = Timestamp.now()
   const updatedDate: FieldValue = Timestamp.now()
 
