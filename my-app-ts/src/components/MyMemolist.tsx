@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { User } from 'firebase/auth'; // FirebaseのUser型をインポート
 import remarkGfm from 'remark-gfm'; //これを使うとコンテンツをマークダウンにできるよ
 
+import { doc, deleteDoc } from 'firebase/firestore';
+
 import ReactMarkdown from 'react-markdown';
 
 interface MyMemoListProps {
@@ -14,21 +16,7 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // function Delete(memo:any){
-  //   try{
-  //   const url= `${apiEndpoint}?user_id=${encodeURIComponent(currentUser.uid)}?memo_id=${encodeURIComponent(memo.id)}`;
-  //   const response = await fetch(url,{
-  //     method:"DELETE",
-  //   });
-  //   if (!response.ok) {
-  //         const errorData = await response.json();
-  //         throw new Error(errorData.message || '削除失敗');
-  //       }
-  //   }catch(err:any){
-  //     setError(`メモの読み込みエラー: ${err.message}`);
-  //     console.error("メモの取得エラー:", err);
-  //   }
-  // }
+  
   useEffect(() => {
     // コンポーネントがマウントされたらメモを読み込む
     const fetchMemos = async () => {
