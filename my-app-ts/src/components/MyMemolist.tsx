@@ -12,6 +12,21 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  // function Delete(memo:any){
+  //   try{
+  //   const url= `${apiEndpoint}?user_id=${encodeURIComponent(currentUser.uid)}?memo_id=${encodeURIComponent(memo.id)}`;
+  //   const response = await fetch(url,{
+  //     method:"DELETE",
+  //   });
+  //   if (!response.ok) {
+  //         const errorData = await response.json();
+  //         throw new Error(errorData.message || '削除失敗');
+  //       }
+  //   }catch(err:any){
+  //     setError(`メモの読み込みエラー: ${err.message}`);
+  //     console.error("メモの取得エラー:", err);
+  //   }
+  // }
   useEffect(() => {
     // コンポーネントがマウントされたらメモを読み込む
     const fetchMemos = async () => {
@@ -68,6 +83,7 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
               <h3 style={{ margin: '0 0 10px 0', color: '#007bff' }}>{memo.title}</h3>
               <p style={{ margin: '0', color: '#555', whiteSpace: 'pre-wrap' }}>{memo.content}</p>
               {/* 必要に応じて、編集ボタンや削除ボタンなどを追加 */}
+              {/* <button onClick={Delete(memo)}>消去</button> */}
             </li>
           ))}
         </ul>
