@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { User } from 'firebase/auth'; // FirebaseのUser型をインポート
 import remarkGfm from 'remark-gfm'; //これを使うとコンテンツをマークダウンにできるよ
 
-import { doc, deleteDoc } from 'firebase/firestore';
-
 import ReactMarkdown from 'react-markdown';
 
 interface MyMemoListProps {
