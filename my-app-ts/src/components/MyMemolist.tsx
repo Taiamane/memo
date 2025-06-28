@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { User } from 'firebase/auth'; // FirebaseのUser型をインポート
 import remarkGfm from 'remark-gfm'; //これを使うとコンテンツをマークダウンにできるよ
 
+import ReactMarkdown from 'react-markdown';
+
 interface MyMemoListProps {
   currentUser: User; // ログインユーザーの情報を必ず受け取るので User 型
   apiEndpoint: string; // APIエンドポイントも必要なので受け取る
@@ -11,22 +13,23 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
   const [memos, setMemos] = useState<any[]>([]); // メモの配列
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [editformOpen, setEditFormOpen] = useState<string | null>(null);
+  const [editTitle, setEditTitle] = useState(''); // 編集フォームのタイトル入力値
+  const [editContent, setEditContent] = useState(''); // 編集フォームのコンテンツ入力値
 
+  
+
+  
   useEffect(() => {
     // コンポーネントがマウントされたらメモを読み込む
     const fetchMemos = async () => {
       setLoading(true);
       setError(null);
       try {
-        // 仮に、GETリクエストでuserIdをクエリパラメータとして送る場合
-        const url = `${apiEndpoint}?userId=${encodeURIComponent(currentUser.uid)}`;
+        const url = `${apiEndpoint}?user_id=${encodeURIComponent(currentUser.uid)}`;
         
-        // もしFirebase Functions側で別途「自分のメモ取得用」の関数（例: getMyMemos）を用意するなら
-        // const url = `https://<your-project-id>.<region>.cloudfunctions.net/getMyMemos?userId=${encodeURIComponent(currentUser.uid)}`;
-
         const response = await fetch(url, {
-          method: 'GET',
-          
+          method: 'GET',          
         });
 
         if (!response.ok) {
@@ -35,7 +38,7 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
         }
 
         const data = await response.json();
-        setMemos(data.data || []); //まだ本番用のDBのテーブルは作ってないけど
+        setMemos(data.data || []); 
       } catch (err: any) {
         setError(`メモの読み込みエラー: ${err.message}`);
         console.error("メモの取得エラー:", err);
@@ -48,8 +51,63 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
     if (currentUser && currentUser.uid) {
       fetchMemos();
     }
+    
 
-  }, [currentUser, apiEndpoint]); // currentUser または apiEndpoint が変わったら再実行
+  }, [currentUser, apiEndpoint, ]); // currentUser または apiEndpoint が変わったら再実行
+
+  const handleDelete = async (memoId: string) => {
+    if (!window.confirm('本当にこのメモを削除しますか？')) {
+      return; // キャンセルされたら処理を中断
+    }
+
+    try {
+      const url = `${apiEndpoint}?memoid=${encodeURIComponent(memoId)}`; 
+      const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          // 必要であれば認証トークンなどを追加
+          // 'Authorization': `Bearer ${await currentUser.getIdToken()}`
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'メモの削除に失敗しました');
+      }
+
+      // 削除が成功したら、ローカルのメモリストから該当のメモを削除
+      setMemos(prevMemos => prevMemos.filter(memo => memo.id !== memoId));
+      window.location.reload()
+      alert('メモが正常に削除されました。');
+    } catch (err: any) {
+      setError(`メモの削除エラー: ${err.message}`);
+      console.error("メモの削除エラー:", err);
+    }
+  };
+
+  const handleSubmitEdit = async (memoId: string) => {
+    try {
+      const url = `${apiEndpoint}?memoid=${encodeURIComponent(memoId)}`; 
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          
+        },
+        body : JSON.stringify({
+          title: editTitle,
+          content: editContent,
+        })
+      })
+      window.location.reload()
+    } catch (err: any) {
+      setError(`編集エラー: ${err.message}`);
+      console.error("編集エラー:", err);
+    }
+  }
+
+  
 
   if (loading) {
     return <div style={{ textAlign: 'center', padding: '20px' }}>あなたのメモを読み込み中...</div>;
@@ -60,20 +118,59 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
   }
 
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px', border: '1px solid #eee', borderRadius: '8px' }}>
-      <h2 style={{ textAlign: 'center', color: '#333', marginBottom: '30px' }}>{currentUser.displayName || currentUser.email}さんのメモ一覧</h2>
+    <div>
+      <h2>{currentUser.displayName || currentUser.email}さんのメモ一覧</h2>
       
       {memos.length === 0 ? (
-        <p style={{ textAlign: 'center', color: '#666' }}>まだメモがありません。新しいメモを作成してください！</p>
+        <p>まだメモがありません。新しいメモを作成してください！</p>
       ) : (
         <ul style={{ listStyle: 'none', padding: 0 }}>
           {memos.map((memo) => (
+            
             <li key={memo.id} style={{ marginBottom: '15px', padding: '15px', border: '1px solid #ddd', borderRadius: '6px', backgroundColor: '#fff' }}>
-              <h3 style={{ margin: '0 0 10px 0', color: '#007bff' }}>{memo.title}</h3>
-              <p style={{ margin: '0', color: '#555', whiteSpace: 'pre-wrap' }}>{memo.content}</p>
-              {/* 必要に応じて、編集ボタンや削除ボタンなどを追加 */}
+              
+              
+              {editformOpen === memo.id ? (
+                // 編集フォーム
+                <div>
+                  <input
+                    type="text"
+                    value={editTitle}
+                    onChange={(e) => setEditTitle(e.target.value)}
+                    style={{ width: '100%', padding: '8px', marginBottom: '10px', border: '1px solid #ddd', borderRadius: '4px' }}
+                  />
+                  <textarea
+                    value={editContent}
+                    onChange={(e) => setEditContent(e.target.value)}
+                    
+                    style={{ width: '100%', padding: '8px', marginBottom: '10px', border: '1px solid #ddd', borderRadius: '4px' }}
+                  ></textarea>
+                  <button onClick={() => {handleSubmitEdit(memo.id); setEditFormOpen(null)}} style={{ marginRight: '10px' }}>
+                    更新
+                  </button>
+                  <button onClick={() => (setEditFormOpen(null))}>キャンセル</button>
+                </div>
+              ) : (
+                // 通常のメモ表示
+                <>
+                  <h3>{memo.title}</h3>
+                  <p>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                      {memo.content}
+                    </ReactMarkdown>
+                  </p>
+                  <button onClick={() => handleDelete(memo.id)} style={{ marginRight: '10px' }}>
+                    削除
+                  </button>
+                  <button onClick={() => {setEditFormOpen(memo.id); setEditTitle(memo.title); setEditContent(memo.content)}}>編集</button>
+                </>
+              )}
             </li>
-          ))}
+
+
+              )
+            ) //mapここまで
+          }
         </ul>
       )}
     </div>
