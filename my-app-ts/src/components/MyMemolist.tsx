@@ -13,6 +13,11 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
   const [memos, setMemos] = useState<any[]>([]); // メモの配列
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [editformOpen, setEditFormOpen] = useState<string | null>(null);
+  const [editTitle, setEditTitle] = useState(''); // 編集フォームのタイトル入力値
+  const [editContent, setEditContent] = useState(''); // 編集フォームのコンテンツ入力値
+
+  
 
   
   useEffect(() => {
@@ -48,7 +53,7 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
     }
     
 
-  }, [currentUser, apiEndpoint]); // currentUser または apiEndpoint が変わったら再実行
+  }, [currentUser, apiEndpoint, ]); // currentUser または apiEndpoint が変わったら再実行
 
   const handleDelete = async (memoId: string) => {
     if (!window.confirm('本当にこのメモを削除しますか？')) {
@@ -73,12 +78,36 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
 
       // 削除が成功したら、ローカルのメモリストから該当のメモを削除
       setMemos(prevMemos => prevMemos.filter(memo => memo.id !== memoId));
+      window.location.reload()
       alert('メモが正常に削除されました。');
     } catch (err: any) {
       setError(`メモの削除エラー: ${err.message}`);
       console.error("メモの削除エラー:", err);
     }
   };
+
+  const handleSubmitEdit = async (memoId: string) => {
+    try {
+      const url = `${apiEndpoint}?memoid=${encodeURIComponent(memoId)}`; 
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          
+        },
+        body : JSON.stringify({
+          title: editTitle,
+          content: editContent,
+        })
+      })
+      window.location.reload()
+    } catch (err: any) {
+      setError(`編集エラー: ${err.message}`);
+      console.error("編集エラー:", err);
+    }
+  }
+
+  
 
   if (loading) {
     return <div style={{ textAlign: 'center', padding: '20px' }}>あなたのメモを読み込み中...</div>;
@@ -97,19 +126,51 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
       ) : (
         <ul style={{ listStyle: 'none', padding: 0 }}>
           {memos.map((memo) => (
+            
             <li key={memo.id} style={{ marginBottom: '15px', padding: '15px', border: '1px solid #ddd', borderRadius: '6px', backgroundColor: '#fff' }}>
-              <h3>{memo.title}</h3>
-              <p>                
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                  {memo.content}                  
-                </ReactMarkdown>
-              </p>
               
-              <button onClick={() => handleDelete(memo.id)}>
-                  削除
-                </button>
+              
+              {editformOpen === memo.id ? (
+                // 編集フォーム
+                <div>
+                  <input
+                    type="text"
+                    value={editTitle}
+                    onChange={(e) => setEditTitle(e.target.value)}
+                    style={{ width: '100%', padding: '8px', marginBottom: '10px', border: '1px solid #ddd', borderRadius: '4px' }}
+                  />
+                  <textarea
+                    value={editContent}
+                    onChange={(e) => setEditContent(e.target.value)}
+                    
+                    style={{ width: '100%', padding: '8px', marginBottom: '10px', border: '1px solid #ddd', borderRadius: '4px' }}
+                  ></textarea>
+                  <button onClick={() => {handleSubmitEdit(memo.id); setEditFormOpen(null)}} style={{ marginRight: '10px' }}>
+                    更新
+                  </button>
+                  <button onClick={() => (setEditFormOpen(null))}>キャンセル</button>
+                </div>
+              ) : (
+                // 通常のメモ表示
+                <>
+                  <h3>{memo.title}</h3>
+                  <p>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                      {memo.content}
+                    </ReactMarkdown>
+                  </p>
+                  <button onClick={() => handleDelete(memo.id)} style={{ marginRight: '10px' }}>
+                    削除
+                  </button>
+                  <button onClick={() => {setEditFormOpen(memo.id); setEditTitle(memo.title); setEditContent(memo.content)}}>編集</button>
+                </>
+              )}
             </li>
-          ))}
+
+
+              )
+            ) //mapここまで
+          }
         </ul>
       )}
     </div>

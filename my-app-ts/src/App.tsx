@@ -17,6 +17,7 @@ function App() {
     setCurrentUser(user);
     console.log("App.tsx: ユーザー情報が更新されました:", user ? user.uid : "ログアウト");
   }, []);
+  // ⭐ ここにAPIのエンドポイントURLを設定してください
   
   return (
     <div className="App">
@@ -52,14 +53,17 @@ function App() {
                     <button onClick={()=>setPostformopen(false)}>閉じる</button>
                     <PostnewMemo currentUser={currentUser} apiEndpoint={MEMOCONTROL_URL}></PostnewMemo>
                     </div>
-                  )}                                    
+                  )}
+                    
+                
                   
                   ここにメモを表示するよ
                   {<MyMemoList currentUser={currentUser} apiEndpoint={MEMOCONTROL_URL} />}
                 </div>
               ) : (
                 <p>
-                  ログインしてないよ<br/>                  
+                  ログインしてないよ<br/>
+                  多分ここには宣伝フレーズを書くよ
                 </p>
               )}
               
