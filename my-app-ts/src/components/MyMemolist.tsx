@@ -16,9 +16,6 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
   const [editformOpen, setEditFormOpen] = useState<string | null>(null);
   const [editTitle, setEditTitle] = useState(''); // 編集フォームのタイトル入力値
   const [editContent, setEditContent] = useState(''); // 編集フォームのコンテンツ入力値
-
-  
-
   
   useEffect(() => {
     // コンポーネントがマウントされたらメモを読み込む
@@ -105,9 +102,7 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
       setError(`編集エラー: ${err.message}`);
       console.error("編集エラー:", err);
     }
-  }
-
-  
+  }  
 
   if (loading) {
     return <div style={{ textAlign: 'center', padding: '20px' }}>あなたのメモを読み込み中...</div>;

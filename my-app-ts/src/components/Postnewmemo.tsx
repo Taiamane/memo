@@ -1,6 +1,5 @@
 import React,{useState} from 'react';
 import { User } from 'firebase/auth'; // FirebaseのUser型をインポート
-import {FieldValue, Timestamp} from 'firebase/firestore';
 
 interface NewmemoProps {
   currentUser: User; // ログインユーザーの情報を必ず受け取るので User 型
@@ -21,7 +20,6 @@ const PostnewMemo: React.FC<NewmemoProps> = ({ currentUser, apiEndpoint }) => {
     if (!memocontent){
       setMemoContent("No content")
     }
-    // ロケールを指定して日付を取得するサンプルコード
   
   try{
     const response = await fetch(apiEndpoint, {
@@ -72,7 +70,6 @@ const PostnewMemo: React.FC<NewmemoProps> = ({ currentUser, apiEndpoint }) => {
       </div>
       
     )
-
 
 }
 export default PostnewMemo
