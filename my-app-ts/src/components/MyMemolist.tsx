@@ -10,6 +10,7 @@ interface MyMemoListProps {
 }
 
 const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => {
+  
   const [memos, setMemos] = useState<any[]>([]); // メモの配列
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -17,7 +18,9 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
   const [editTitle, setEditTitle] = useState(''); // 編集フォームのタイトル入力値
   const [editContent, setEditContent] = useState(''); // 編集フォームのコンテンツ入力値
   
+
   useEffect(() => {
+    
     // コンポーネントがマウントされたらメモを読み込む
     const fetchMemos = async () => {
       setLoading(true);
@@ -105,7 +108,7 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
   }  
 
   if (loading) {
-    return <div style={{ textAlign: 'center', padding: '20px' }}>あなたのメモを読み込み中...</div>;
+    return <div style={{ textAlign: 'center', padding: '20px' }}>Now Loading...</div>;
   }
 
   if (error) {
