@@ -74,10 +74,7 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || 'メモの削除に失敗しました');
-      }
-
-      // 削除が成功したら、ローカルのメモリストから該当のメモを削除
-      setMemos(prevMemos => prevMemos.filter(memo => memo.id !== memoId));
+      }      
       window.location.reload()
       alert('メモが正常に削除されました。');
     } catch (err: any) {
@@ -151,8 +148,8 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
               ) : (
                 // 通常のメモ表示
                 <>
-                  <h3>{memo.title}</h3>
-                  <p>
+                  <h3 style={{ width: '100%', padding: '8px', marginBottom: '10px', textAlign:'left'}}>{memo.title}</h3>
+                  <p style={{ width: '100%', padding: '8px', marginBottom: '10px', textAlign:'left'}}>
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>
                       {memo.content}
                     </ReactMarkdown>
