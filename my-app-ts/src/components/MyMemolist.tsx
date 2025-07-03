@@ -74,9 +74,11 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || 'メモの削除に失敗しました');
-      }      
-      window.location.reload()
-      alert('メモが正常に削除されました。');
+      }
+      setMemos(memos.filter(memo => memo.id !== memoId));
+      alert('メモが正常に削除されました。');      
+      
+      
     } catch (err: any) {
       setError(`メモの削除エラー: ${err.message}`);
       console.error("メモの削除エラー:", err);
@@ -97,7 +99,7 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
           content: editContent,
         })
       })
-      window.location.reload()
+      window.location.reload() //とりま編集後の再読み込みはこれで...
     } catch (err: any) {
       setError(`編集エラー: ${err.message}`);
       console.error("編集エラー:", err);
