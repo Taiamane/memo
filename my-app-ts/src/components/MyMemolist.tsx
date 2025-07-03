@@ -150,7 +150,7 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
               ) : (
                 // 通常のメモ表示
                 <>
-                  <h3 style={{ width: '100%', padding: '8px', marginBottom: '10px', textAlign:'left'}}>{memo.title}</h3>
+                  <h3 style={{ width: '100%', padding: '8px', marginBottom: '10px', textAlign:'left', color:'darkorange',}}>{memo.title}</h3>
                   <p style={{ width: '100%', padding: '8px', marginBottom: '10px', textAlign:'left'}}>
                     <ReactMarkdown remarkPlugins={[remarkGfm]}
                     
