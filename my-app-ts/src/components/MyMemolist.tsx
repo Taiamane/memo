@@ -152,7 +152,9 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
                 <>
                   <h3 style={{ width: '100%', padding: '8px', marginBottom: '10px', textAlign:'left'}}>{memo.title}</h3>
                   <p style={{ width: '100%', padding: '8px', marginBottom: '10px', textAlign:'left'}}>
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}
+                    
+                    >
                       {memo.content}
                     </ReactMarkdown>
                   </p>
