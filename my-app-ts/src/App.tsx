@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import Apitest from './components/Apitest';
-import AuthButton from './components/Authbutton';
+import AuthButton from './components/header_right';
 import { useState, useCallback } from 'react';
 import { User } from 'firebase/auth';
 import MyMemoList from './components/MyMemolist';
@@ -24,12 +24,11 @@ function App() {
       <BrowserRouter>  
       
         <header className="App-header">      
-          <p style= {{
-            color:"white",
-          }}
-          >
-          ヘッダーだよ
+          <p>
+            ヘッダーだよ
           </p>
+          <Link to="/Howtowrite">書き方の説明書</Link>
+          <Link to="/">トップ</Link>
           <AuthButton onUserChange={handleUserChange}></AuthButton>       
         </header>
 
@@ -54,7 +53,7 @@ function App() {
                     <PostnewMemo currentUser={currentUser} apiEndpoint={MEMOCONTROL_URL}></PostnewMemo>
                     </div>
                   )}                  
-                  ここにメモを表示するよ
+                
                   {<MyMemoList currentUser={currentUser} apiEndpoint={MEMOCONTROL_URL} />}
                 </div>
               ) : (
@@ -63,7 +62,8 @@ function App() {
                 </p>
               )}
               
-              <Link to="/apitest">APIテストフォームを表示する</Link>
+              <Link to="/apitest">APIテストフォームを表示する </Link>
+              
             </div>
             } />                      
 

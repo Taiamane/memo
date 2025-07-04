@@ -3,6 +3,7 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, User } from 'firebase/auth';
 
 
+
 const firebaseConfig = {
   apiKey: "AIzaSyADMuIYqy2Ke7naPLgh8N3z4HMoIIw0d6U",
   authDomain: "memocho-7cb5d.firebaseapp.com",
@@ -79,20 +80,25 @@ const AuthButton: React.FC<AuthButtonProps> = ({ onUserChange }) => {
     <div>
       {user ? (
         // ログイン中の場合
+        
         <div>
-          <p>
+          <button onClick={handleSignOut} className='headerbutton'>
+            ログアウト
+          </button>
+          
+          <p style= {{float:"right",top:"50%"}}>
             {user.displayName || user.email || '名無しさん'}でログイン中
           </p>
+
           {user.photoURL && ( //user.photoURLがTrueの時のみ、imgがレンダリングされるという構文
             <img 
               src={user.photoURL} 
               alt="プロフィール画像" 
               style={{ width: '60px', height: '60px', borderRadius: '50%', marginBottom: '10px' }} 
+              
             />
           )}
-          <button onClick={handleSignOut}>
-            ログアウト
-          </button>
+          
         </div>
       ) : (
         // ログインしていない場合

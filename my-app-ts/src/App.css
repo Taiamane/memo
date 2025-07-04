@@ -20,15 +20,21 @@
   /* 必要であれば、pタグのフォントサイズや太さを調整 */
 }
 .App-header button {
+  display: flex;
+  float:right;
   background-color: #61dafb;
   color: #282c34;
   border: none;
-  padding: 8px 15px;
+  padding: 8px;
   border-radius: 5px;
   cursor: pointer;
+  margin: 10px;
   font-size: 0.95em;
   font-weight: bold;
   transition: background-color 0.3s ease, transform 0.1s ease;
+}
+.App-header img{
+  float:right;
 }
 
 .App-header button:hover {
