@@ -17,7 +17,12 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
   const [editformOpen, setEditFormOpen] = useState<string | null>(null);
   const [editTitle, setEditTitle] = useState(''); // 編集フォームのタイトル入力値
   const [editContent, setEditContent] = useState(''); // 編集フォームのコンテンツ入力値
-  
+
+  type Order = 'up' | 'down';
+  const[displayorder, setDisplayorder] = useState<Order>('up');
+  const handleChange_order = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setDisplayorder(event.target.value as Order);
+  };
 
   useEffect(() => {
     
@@ -38,6 +43,7 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
         }
 
         const data = await response.json();
+        //ここに更新日時で並び替えるコードを追加するよ
         setMemos(data.data || []); 
       } catch (err: any) {
         setError(`メモの読み込みエラー: ${err.message}`);
@@ -53,7 +59,7 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
     }
     
 
-  }, [currentUser, apiEndpoint, ]); // currentUser または apiEndpoint が変わったら再実行
+  }, [currentUser, apiEndpoint,displayorder ]); // currentUser または apiEndpoint が変わったら再実行
 
   const handleDelete = async (memoId: string) => {
     if (!window.confirm('本当にこのメモを削除しますか？')) {
@@ -117,6 +123,12 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
   return (
     <div>
       <h2>{currentUser.displayName || currentUser.email}さんのメモ一覧</h2>
+      
+      <select id="status-select" value={displayorder} onChange={handleChange_order}>
+        <option value="up">新しい順</option>
+        <option value="down">古い順</option>       
+      </select>
+      <p>現在の表示順: {displayorder === 'up' ? '新しい順' : '古い順'}</p>
       
       {memos.length === 0 ? (
         <p>まだメモがありません。新しいメモを作成してください！</p>

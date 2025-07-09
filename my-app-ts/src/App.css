@@ -2,6 +2,9 @@
   text-align: left; 
 }
 
+
+/*----------ヘッダー関連----------*/
+
 .App-header {
   background-color: #282c34;  
   color: white;
@@ -10,11 +13,6 @@
   display: flex;             /* 要素をFlexコンテナにする */
   align-items: center;       /* 子要素を垂直方向の中央に配置 */
   justify-content: flex-start; /* 子要素を左端に寄せる */
-}
-
-.Header-right{
-  margin-left: auto;
-  justify-content: right;
 }
 
 .App-header p {
@@ -28,6 +26,14 @@
   position:relative;
   display: inline-block;
 } /*なんでこれを書かないとaタグは白にならないんだろうなぁ*/
+
+.title{
+  font-weight: bold;
+  font-size: 200%;
+}
+
+
+/*--sidepage:ヘッダーに表示する説明書etcへのリンク文字--*/
 
 .sidepage a{
   margin-left: 40px;
@@ -46,16 +52,17 @@
   transition: transform 0.3s ease-out; /* アニメーションの設定 */
 }
 
-a:hover::after {
+.sidepage a:hover::after {
   transform: scaleX(1); /* X軸方向のスケールを1に戻して表示する */
 }
 
-.title{
-  font-weight: bold;
-  font-size: 200%;
+
+/*-----主に右のログインステータス表示に関する部分-----*/
+
+.Header-right{
+  margin-left: auto;
+  justify-content: right;
 }
-
-
 
 .App-header button {
   display: flex;
@@ -80,6 +87,10 @@ a:hover::after {
   color: white;
   transform: translateY(-1px);
 }
+
+
+/*----------------------------------*/
+
 
 .App-link {
   color: #61dafb;
