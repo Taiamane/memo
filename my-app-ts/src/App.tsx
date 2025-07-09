@@ -24,11 +24,15 @@ function App() {
       <BrowserRouter>  
       
         <header className="App-header">      
-          <p>
-            ヘッダーだよ
-          </p>
-          <Link to="/Howtowrite">書き方の説明書</Link>
-          <Link to="/">トップ</Link>
+          <a href="/">
+            <p className="title">
+              ヘッダーだよ
+            </p>
+          </a>
+          <div className='sidepage'>
+            <a href="/Howtowrite">書き方の説明書</a>
+          </div>
+
           <AuthButton onUserChange={handleUserChange}></AuthButton>       
         </header>
 

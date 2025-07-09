@@ -1,12 +1,10 @@
 .App {
-  text-align: left;
-  
+  text-align: left; 
 }
-
 
 .App-header {
   background-color: #282c34;
-  padding: 15px 20px;
+  
   color: white;
   border-radius: 6px 6px 0 0;
   margin-bottom: 20px;
@@ -16,9 +14,41 @@
 }
 
 .App-header p {
-  margin: 0; /* pタグのデフォルトマージンをリセット */
-  /* 必要であれば、pタグのフォントサイズや太さを調整 */
+  margin: 0; 
+  padding: 15px 20px;
 }
+
+.App-header a{
+  color: white;  
+  text-decoration: none; 
+  position:relative;
+  display: inline-block;
+} /*なんでこれを書かないとaタグは白にならないんだろうなぁ*/
+
+.sidepage a::after { /*全てのHeader aタグの後にこの要素が来るようになる　*/
+  content: ''; /* 疑似要素には必須 */
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%; /* 線の幅 */
+  height: 2px; /* 線の太さ */
+  background-color: white; /* 線の色 */
+  transform: scaleX(0); /* X軸方向のスケールを0にして見えなくする */
+  transform-origin: left; /* 左を起点に変化させる */
+  transition: transform 0.3s ease-out; /* アニメーションの設定 */
+}
+
+a:hover::after {
+  transform: scaleX(1); /* X軸方向のスケールを1に戻して表示する */
+}
+
+.title{
+  font-weight: bold;
+  font-size: 200%;
+}
+
+
+
 .App-header button {
   display: flex;
   float:right;
