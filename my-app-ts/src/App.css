@@ -3,14 +3,18 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  
+  background-color: #282c34;  
   color: white;
   border-radius: 6px 6px 0 0;
   margin-bottom: 20px;
   display: flex;             /* 要素をFlexコンテナにする */
-  justify-content: space-between; /* 子要素を両端に寄せる */
   align-items: center;       /* 子要素を垂直方向の中央に配置 */
+  justify-content: flex-start; /* 子要素を左端に寄せる */
+}
+
+.Header-right{
+  margin-left: auto;
+  justify-content: right;
 }
 
 .App-header p {
@@ -24,6 +28,10 @@
   position:relative;
   display: inline-block;
 } /*なんでこれを書かないとaタグは白にならないんだろうなぁ*/
+
+.sidepage a{
+  margin-left: 40px;
+}
 
 .sidepage a::after { /*全てのHeader aタグの後にこの要素が来るようになる　*/
   content: ''; /* 疑似要素には必須 */
