@@ -107,7 +107,7 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
   }  
 
   if (loading) {
-    return <div style={{ textAlign: 'center', padding: '20px' }}>Now Loading...</div>;
+    return <div style={{padding: '20px' }}>Now Loading...</div>;
   }
 
   if (error) {
