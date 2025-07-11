@@ -41,10 +41,25 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
           const errorData = await response.json();
           throw new Error(errorData.message || 'メモの取得に失敗しました');
         }
-
-        const data = await response.json();
-        //ここに更新日時で並び替えるコードを追加するよ
-        setMemos(data.data || []); 
+        
+        const responsedata = await response.json();
+        
+        //ここに更新日時で並び替えるコードを追加するよ...うまく動かないなあ
+        if(displayorder==='down'){
+          responsedata.data.sort((a:any, b:any) => {
+          const dateA = new Date(a.made_date._seconds*1000); //firebaseの日時表示法を比べられるように書き換えてる
+          const dateB = new Date(b.made_date._seconds*1000); //1970年1月1日からの秒数が_secondsとして管理されている
+            return dateA.getTime() - dateB.getTime();
+        });
+        }
+        if(displayorder==='up'){
+          responsedata.data.sort((a:any, b:any) => {
+          const dateA = new Date(a.made_date._seconds*1000);
+          const dateB = new Date(b.made_date._seconds*1000);
+          return dateB.getTime() - dateA.getTime();
+        });
+        }
+        setMemos(responsedata.data || []); 
       } catch (err: any) {
         setError(`メモの読み込みエラー: ${err.message}`);
         console.error("メモの取得エラー:", err);
@@ -164,11 +179,13 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
                 <>
                   <h3 style={{ width: '100%', padding: '8px', marginBottom: '10px', textAlign:'left', color:'darkorange',}}>{memo.title}</h3>
                   <p style={{ width: '100%', padding: '8px', marginBottom: '10px', textAlign:'left'}}>
+                    <div className='markdown'>
                     <ReactMarkdown remarkPlugins={[remarkGfm]}
                     
                     >
                       {memo.content}
                     </ReactMarkdown>
+                    </div>
                   </p>
                   <button onClick={() => handleDelete(memo.id)} style={{ marginRight: '10px' }}>
                     削除

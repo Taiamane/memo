@@ -97,14 +97,17 @@
 }
 
 pre {
-  background-color: #f6f8fa; 
+  
   padding: 16px;
   border-radius: 6px;
   overflow-x: auto; 
 }
 
-pre code {
+
+
+.markdown pre {
   font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
   font-size: 85%;
-  color: #333; /* コードの色 */
+  background-color: #282c34; 
+  color: white; /* コードの色 */
 }
