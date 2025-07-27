@@ -32,7 +32,7 @@ function App() {
         <header className="App-header">      
           <a href="/">
             <p className="title">
-              ヘッダーだよ
+              Markdown memocho
             </p>
           </a>
           <div className='sidepage'>
