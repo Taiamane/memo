@@ -47,7 +47,6 @@ const PostnewMemo: React.FC<NewmemoProps> = ({ currentUser, apiEndpoint }) => {
 
     return (
       <div>
-        <p>新規メモ投稿フォームをここに作るよ</p>
         <div className="newpostcontent">
           <label htmlFor="memo-title">タイトル：</label>
           <input

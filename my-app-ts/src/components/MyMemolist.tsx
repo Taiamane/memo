@@ -136,14 +136,11 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
   }
 
   return (
-    <div>
-      <h2>{currentUser.displayName || currentUser.email}さんのメモ一覧</h2>
-      
+    <div>      
       <select id="status-select" value={displayorder} onChange={handleChange_order}>
         <option value="up">新しい順</option>
         <option value="down">古い順</option>       
       </select>
-      <p>現在の表示順: {displayorder === 'up' ? '新しい順' : '古い順'}</p>
       
       {memos.length === 0 ? (
         <p>まだメモがありません。新しいメモを作成してください！</p>
@@ -177,7 +174,7 @@ const MyMemoList: React.FC<MyMemoListProps> = ({ currentUser, apiEndpoint }) => 
               ) : (
                 // 通常のメモ表示
                 <>
-                  <h3 style={{ width: '100%', padding: '8px', marginBottom: '10px', textAlign:'left', color:'darkorange',}}>{memo.title}</h3>
+                  <h1 style={{ width: '100%', padding: '8px', marginBottom: '10px', textAlign:'left', color:'blue',}}>{memo.title}</h1>
                   <p style={{ width: '100%', padding: '8px', marginBottom: '10px', textAlign:'left'}}>
                     <div className='markdown'>
                     <ReactMarkdown remarkPlugins={[remarkGfm]}

@@ -32,6 +32,10 @@
   font-size: 200%;
 }
 
+.login-info{
+  text-align: center;
+}
+
 
 /*--sidepage:ヘッダーに表示する説明書etcへのリンク文字--*/
 
@@ -111,3 +115,4 @@ pre {
   background-color: #282c34; 
   color: white; /* コードの色 */
 }
+

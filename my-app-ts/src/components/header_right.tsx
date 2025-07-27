@@ -79,25 +79,15 @@ const AuthButton: React.FC<AuthButtonProps> = ({ onUserChange }) => {
   return (
     <div>
       {user ? (
-        // ログイン中の場合
-        
-        <div>
+        // ログイン中の場合        
+        <div className='login-info'>
           <button onClick={handleSignOut} className='headerbutton'>
             ログアウト
           </button>
           
           <p style= {{float:"right",top:"50%"}}>
-            {user.displayName || user.email || '名無しさん'}でログイン中
+            {user.displayName || user.email || '名無しさん'}
           </p>
-
-          {user.photoURL && ( //user.photoURLがTrueの時のみ、imgがレンダリングされるという構文
-            <img 
-              src={user.photoURL} 
-              alt="プロフィール画像" 
-              style={{ width: '60px', height: '60px', borderRadius: '50%', marginBottom: '10px' }} 
-              
-            />
-          )}
           
         </div>
       ) : (
@@ -105,8 +95,7 @@ const AuthButton: React.FC<AuthButtonProps> = ({ onUserChange }) => {
         <div>
           <button 
             onClick={handleGoogleSignIn}
-            style={{ 
-              
+            style={{               
               color: 'black',               
             }}>            
             Googleでログイン
