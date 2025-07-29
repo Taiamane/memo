@@ -33,6 +33,7 @@ function App() {
           </a>
           <div className='sidepage'>
             <a href="/Howtouse">説明書</a>
+            <a onClick={()=>setPostformopen(true)}>新規作成</a>
             
           </div>
           <div className='Header-right'>
@@ -43,19 +44,14 @@ function App() {
         <Routes>
           <Route path='/' element={
             // ホームページにのみ表示したい要素をここに記述
-          <div>
-                
+          <div>                
               {currentUser ? (
                 <div>
-                  {!postformopen && (
-                  <div>
-                    <button onClick={()=>setPostformopen(true)}>あたらしくつくる</button>
-                  </div>
-                  )}
+                  
                   {postformopen &&(
                     <div>
-                    <button onClick={()=>setPostformopen(false)}>閉じる</button>
-                    <PostnewMemo currentUser={currentUser} apiEndpoint={MEMOCONTROL_URL}></PostnewMemo>
+                      <PostnewMemo currentUser={currentUser} apiEndpoint={MEMOCONTROL_URL}></PostnewMemo>
+                      <button onClick={()=>setPostformopen(false)}>閉じる</button>
                     </div>
                   )}                  
                 
@@ -67,7 +63,7 @@ function App() {
                 </p>
               )}
                         
-              <Link to="/apitest">APIテストフォームを表示する </Link>
+              {/* <Link to="/apitest">APIテストフォームを表示する </Link> */}
               
             </div>
             } />                      
