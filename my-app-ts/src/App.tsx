@@ -60,7 +60,7 @@ function App() {
                 </div>
               ) : (
                 <div className="not-logged-in-screen">
-                  <p>ログインしてないよ</p>
+                  <p>ログインをしなさーい！！</p>
                 </div>
               )}
                         
