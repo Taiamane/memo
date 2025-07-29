@@ -1,43 +1,89 @@
 .App {
-  text-align: center;
+  text-align: left; 
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+/*----------ヘッダー関連----------*/
 
 .App-header {
-  background-color: #282c34;
-  padding: 15px 20px;
+  background-color: #282c34;  
   color: white;
   border-radius: 6px 6px 0 0;
   margin-bottom: 20px;
   display: flex;             /* 要素をFlexコンテナにする */
-  justify-content: space-between; /* 子要素を両端に寄せる */
   align-items: center;       /* 子要素を垂直方向の中央に配置 */
+  justify-content: flex-start; /* 子要素を左端に寄せる */
 }
 
 .App-header p {
-  margin: 0; /* pタグのデフォルトマージンをリセット */
-  /* 必要であれば、pタグのフォントサイズや太さを調整 */
+  margin: 0; 
+  padding: 15px 20px;
 }
+
+.App-header a{
+  color: white;  
+  text-decoration: none; 
+  position:relative;
+  display: inline-block;
+} /*なんでこれを書かないとaタグは白にならないんだろうなぁ*/
+
+.title{
+  font-weight: bold;
+  font-size: 200%;
+}
+
+.login-info{
+  text-align: center;
+}
+
+
+/*--sidepage:ヘッダーに表示する説明書etcへのリンク文字--*/
+
+.sidepage a{
+  margin-left: 40px;
+}
+
+.sidepage a::after { /*全てのHeader aタグの後にこの要素が来るようになる　*/
+  content: ''; /* 疑似要素には必須 */
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%; /* 線の幅 */
+  height: 2px; /* 線の太さ */
+  background-color: white; /* 線の色 */
+  transform: scaleX(0); /* X軸方向のスケールを0にして見えなくする */
+  transform-origin: left; /* 左を起点に変化させる */
+  transition: transform 0.3s ease-out; /* アニメーションの設定 */
+}
+
+.sidepage a:hover::after {
+  transform: scaleX(1); /* X軸方向のスケールを1に戻して表示する */
+}
+
+
+/*-----主に右のログインステータス表示に関する部分-----*/
+
+.Header-right{
+  margin-left: auto;
+  justify-content: right;
+}
+
 .App-header button {
+  display: flex;
+  float:right;
   background-color: #61dafb;
   color: #282c34;
   border: none;
-  padding: 8px 15px;
+  padding: 8px;
   border-radius: 5px;
   cursor: pointer;
+  margin: 10px;
   font-size: 0.95em;
   font-weight: bold;
   transition: background-color 0.3s ease, transform 0.1s ease;
+}
+.App-header img{
+  float:right;
 }
 
 .App-header button:hover {
@@ -46,15 +92,27 @@
   transform: translateY(-1px);
 }
 
+
+/*----------------------------------*/
+
+
 .App-link {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+pre {
+  
+  padding: 16px;
+  border-radius: 6px;
+  overflow-x: auto; 
 }
+
+
+
+.markdown pre {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 85%;
+  background-color: #282c34; 
+  color: white; /* コードの色 */
+}
+

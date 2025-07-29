@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import { User } from 'firebase/auth'; // FirebaseのUser型をインポート
-import {FieldValue, Timestamp} from 'firebase/firestore';
+import '../mainpage.css'
 
 interface NewmemoProps {
   currentUser: User; // ログインユーザーの情報を必ず受け取るので User 型
@@ -8,11 +8,10 @@ interface NewmemoProps {
 }
 
 const PostnewMemo: React.FC<NewmemoProps> = ({ currentUser, apiEndpoint }) => {
-  const[memocontent, setMemoContent] = useState<string>("何か入力してね");
+  const[memocontent, setMemoContent] = useState<string>("");
   const[memotitle, setMemoTitle] = useState<string>("");
 
   const [postResponse, setPostResponse] = useState<string | null>(null);
-  const [postError, setPostError] = useState<string | null>(null);
 
   const handlePostSubmit = async () => {
     if (!memotitle){
@@ -21,7 +20,6 @@ const PostnewMemo: React.FC<NewmemoProps> = ({ currentUser, apiEndpoint }) => {
     if (!memocontent){
       setMemoContent("No content")
     }
-    // ロケールを指定して日付を取得するサンプルコード
   
   try{
     const response = await fetch(apiEndpoint, {
@@ -49,7 +47,6 @@ const PostnewMemo: React.FC<NewmemoProps> = ({ currentUser, apiEndpoint }) => {
 
     return (
       <div>
-        <p>新規メモ投稿フォームをここに作るよ</p>
         <div className="newpostcontent">
           <label htmlFor="memo-title">タイトル：</label>
           <input
@@ -58,21 +55,21 @@ const PostnewMemo: React.FC<NewmemoProps> = ({ currentUser, apiEndpoint }) => {
             value={memotitle}
             onChange={(e) => setMemoTitle(e.target.value)}
             placeholder="タイトルを入力"
+            className="memoedit_andmake"
           />
           <label htmlFor="memo-content">内容：</label>
-          <input
+          <textarea
             id="post-id"
-            type="text"
             value={memocontent}
             onChange={(e) => setMemoContent(e.target.value)}
-            placeholder="内容を入力"
+            placeholder="何か入力してね"
+            className ='memoedit_andmake'
           />
           </div>  
           <button onClick={handlePostSubmit}>投稿する</button>
       </div>
       
     )
-
 
 }
 export default PostnewMemo
