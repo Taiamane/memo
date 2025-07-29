@@ -8,6 +8,7 @@ import { User } from 'firebase/auth';
 import MyMemoList from './components/MyMemolist';
 import PostnewMemo from './components/Postnewmemo';
 import Howtouse from './components/Howtouse';
+import './not-login.css'
 
 const MEMOCONTROL_URL = 'https://us-central1-memocho-7cb5d.cloudfunctions.net/Memo_control';
 
@@ -58,9 +59,9 @@ function App() {
                   {<MyMemoList currentUser={currentUser} apiEndpoint={MEMOCONTROL_URL} />}
                 </div>
               ) : (
-                <p>
-                  ログインしてないよ
-                </p>
+                <div className="not-logged-in-screen">
+                  <p>ログインしてないよ</p>
+                </div>
               )}
                         
               {/* <Link to="/apitest">APIテストフォームを表示する </Link> */}
